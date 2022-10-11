@@ -10,23 +10,30 @@ import screen_brightness_control as sbc
 def inReu():
     day = datetime.datetime.now()
     # ouverture du calendrier Outlook
-    outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
-    calender = outlook.GetDefaultFolder(9)  # "9" est le calendrier Outlook
 
     # extraction du planing du jour même
     date = datetime.date(day.year, day.month, day.day)  # année, mois, jour
 
-    items = calender.Items  # récupération des rdv
-    select_items = []  # liste des rdv du jour
+    try:
 
-    for item in items:
-        if (item.start.date() == date):
-            select_items.append(item)
-    # affichage des détails des rdv
-    for select_item in select_items:
-        if (select_item.start.hour * 100 + select_item.start.minute <= day.hour*100 + day.minute <= select_item.end.hour * 100 + select_item.end.minute):
-            return True
-    return False
+        outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
+        calender = outlook.GetDefaultFolder(9)  # "9" est le calendrier Outlook
+
+        items = calender.Items  # récupération des rdv
+        select_items = []  # liste des rdv du jour
+
+        for item in items:
+            if (item.start.date() == date):
+                select_items.append(item)
+        # affichage des détails des rdv
+        for select_item in select_items:
+            if (select_item.start.hour * 100 + select_item.start.minute <= day.hour*100 + day.minute <= select_item.end.hour * 100 + select_item.end.minute):
+                return True
+        return False
+
+    except:
+        print('L\'application n\'arrive pas à accéder à Outlook, veuillez réessayer')
+        return True
 
 # ajoute du temps à la prochaine notif
 def addBreak(time):
@@ -109,11 +116,9 @@ while True:
             # verrouillage
             if (goLock == True):
                 print("L'ordinateur va se verrouiller")
-                time.sleep(10)
+                time.sleep(5)
                 ctypes.windll.user32.LockWorkStation()
-            else:
-                time.sleep(10)
-            time.sleep(20)
+                time.sleep(15)
         else:
             time.sleep(5)
             print('Working hard...')
