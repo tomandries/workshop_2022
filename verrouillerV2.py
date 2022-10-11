@@ -41,10 +41,9 @@ while True:
     timeLock = addBreak(1)
     print("timeLock : " + str(timeLock))
     print("goLock : " + str(goLock))
-    time.sleep(20) # pause d'une minute
+    time.sleep(30) # pause de 30 secondes
     if (goLock == True) :
-        #ctypes.windll.user32.LockWorkStation()
-        print("verrouillage")
+        ctypes.windll.user32.LockWorkStation()
     goLock = True
     time.sleep(10)
 
