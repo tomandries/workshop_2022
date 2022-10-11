@@ -53,8 +53,7 @@ while True:
                 notification.notify(
                     title="Pause",
                     message="Il est temps de faire une pause",
-                    timeout=30,
-                    app_icon="clock.ico"
+                    timeout=30
                 )
                 etatNotif = True
             else:
