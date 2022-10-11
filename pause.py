@@ -1,4 +1,4 @@
-d = 1
+duree = 1
 
 import win32com.client
 import datetime
@@ -33,7 +33,7 @@ while True:
     # affichage de la date
     day = datetime.datetime.now()
 
-    pause = datetime.timedelta(minutes=d)
+    pause = datetime.timedelta(minutes=duree)
     future_day = day + pause
 
     print("Prochaine alerte à : " +
