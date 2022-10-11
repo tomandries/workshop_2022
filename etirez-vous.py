@@ -15,7 +15,7 @@ while True:
     # notification
     notification.notify(
         title="Etirez-vous",
-        message="Prennez deux petites minutes pour vous étirez",
+        message="Prenez deux petites minutes pour vous étirez",
         timeout=10,
         app_icon="setirer.ico"
     )
