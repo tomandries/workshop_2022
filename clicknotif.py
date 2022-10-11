@@ -1,22 +1,28 @@
-import zroya
+# modules
+import webbrowser
+from win10toast_click import ToastNotifier
 
-status = zroya.init(
-    app_name="NotifyBot",
-    company_name="MyBotCorp",
-    product_name="NoBo",
-    sub_product="core",
-    version="v01"
+# function
+page_url = 'http://google.com/'
+
+
+def open_url():
+    try:
+        webbrowser.open_new(page_url)
+        print('Opening URL...')
+    except:
+        print('Failed to open URL. Unsupported variable type.')
+
+
+# initialize
+toaster = ToastNotifier()
+
+# showcase
+toaster.show_toast(
+    "Ouvrir Google",  # title
+    "Cliquer pour ouvrir le lien ! >>",  # message
+    icon_path = "clock.ico",  # 'icon_path'
+    duration = 10,  # for how many seconds toast should be visible; None = leave notification in Notification Center
+    threaded = True,  # True = run other code in parallel; False = code execution will wait till notification disappears
+    callback_on_click = open_url  # click notification to run function
 )
-
-if not status:
-    print("Initialization failed")
-
-
-# zroya is imported and initialized
-template = zroya.Template(zroya.TemplateType.ImageAndText4)
-#Adds text:
-template.setFirstLine("Example notification")
-#Adds the button
-template.addAction("Ok")
-
-zroya.show(template)
