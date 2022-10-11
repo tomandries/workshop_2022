@@ -10,20 +10,17 @@ import screen_brightness_control as sbc
 def inReu():
     day = datetime.datetime.now()
     # ouverture du calendrier Outlook
-    outlook = win32com.client.Dispatch(
-        "Outlook.Application").GetNamespace("MAPI")
+    outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
     calender = outlook.GetDefaultFolder(9)  # "9" est le calendrier Outlook
 
     # extraction du planing du jour même
-    start_date = datetime.date(
-        day.year, day.month, day.day)  # année, mois, jour
-    end_date = datetime.date(day.year, day.month, day.day)  # année, mois, jour
+    date = datetime.date(day.year, day.month, day.day)  # année, mois, jour
 
     items = calender.Items  # récupération des rdv
     select_items = []  # liste des rdv du jour
 
     for item in items:
-        if start_date <= item.start.date() <= end_date:
+        if (item.start.date() == date):
             select_items.append(item)
     # affichage des détails des rdv
     for select_item in select_items:
@@ -50,18 +47,16 @@ def checkStretch() :
         timeout=10,
         app_icon="setirer.ico"
     )
-    # pause de 30 minutes
-    time.sleep(1800)
 
 # alerte pour la luminosité
 def checkEyes() :
     # get current brightness  value
     current_brightness = sbc.get_brightness()
-    print("current_brightness : " + str(current_brightness))
+    #print("current_brightness : " + str(current_brightness))
 
     # get the brightness of the primary display
     primary_brightness = sbc.get_brightness(display=0)
-    print("get_brightness : " + str(primary_brightness))
+    #print("get_brightness : " + str(primary_brightness))
 
     # notification
     primary_brightness = sbc.get_brightness(display=0)
@@ -72,8 +67,8 @@ def checkEyes() :
             timeout=10,
             app_icon="oeilPleure.ico"
         )
-        # pause de 1h
-    time.sleep(3600)
+        global eye_alert
+        eye_alert = 1
 
 # alerte pour la posture
 def checkBack() :
@@ -83,8 +78,6 @@ def checkBack() :
         timeout=10,
         app_icon="dos.ico"
     )
-    # pause de 30 minutes
-    time.sleep(1800)
 
 # variables & objets
 delay = int(input("Délai avant le verrouillage (en minutes) : "))
@@ -93,13 +86,14 @@ day = datetime.datetime.now()
 timeLock = addBreak(delay)
 goLock = False
 
+hour_alert = day.hour
 
 while True:
     day = datetime.datetime.now()
     print("heure actuelle : " + str(day))
-    if (inReu == False):
+    if (inReu() == False):
         # s'il est l'heure de verrouiller l'ordinateur 
-        if (timeLock.hour * 100 + timeLock.minute <= day.hour * 100 + day.minute):
+        if (timeLock.hour * 10000 + timeLock.minute * 100 + timeLock.second <= day.hour * 10000 + day.minute * 100 + day.second):
             goLock = True
             # notification
             toaster.show_toast(
@@ -117,6 +111,8 @@ while True:
                 print("L'ordinateur va se verrouiller")
                 time.sleep(10)
                 ctypes.windll.user32.LockWorkStation()
+            else:
+                time.sleep(10)
             time.sleep(20)
         else:
             time.sleep(5)
@@ -124,7 +120,10 @@ while True:
     else:
         time.sleep(5)
         print('In meeting...')
-    checkEyes
-    checkBack
-    checkStretch
-
+    if (hour_alert == day.hour):
+        eye_alert = 0
+        hour_alert += 1
+        checkBack()
+        checkStretch()
+    if (eye_alert == 0):
+        checkEyes()
