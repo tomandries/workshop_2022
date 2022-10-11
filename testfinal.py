@@ -97,7 +97,7 @@ goLock = False
 while True:
     day = datetime.datetime.now()
     print("heure actuelle : " + str(day))
-    if (inReu() == False):
+    if (inReu == False):
         # s'il est l'heure de verrouiller l'ordinateur 
         if (timeLock.hour * 100 + timeLock.minute <= day.hour * 100 + day.minute):
             goLock = True
