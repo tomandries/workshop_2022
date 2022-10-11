@@ -26,7 +26,6 @@ while True:
     # notification
     primary_brightness = sbc.get_brightness(display=0)
     if primary_brightness == [100]:
-        print("ici")
         notification.notify(
             title="Luminosité très forte !",
             message="Faîtes attention à vos yeux.",
