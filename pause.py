@@ -2,6 +2,7 @@ duree = 1
 
 import win32com.client
 import datetime
+import time
 from plyer import notification
 
 def inReu():
