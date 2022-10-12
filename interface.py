@@ -64,10 +64,10 @@ label.pack(pady=10)
 label['bg']='#fed5cf'
 label.config(font=("Roboto", 27))
 
-photo = PhotoImage(file="bien-etre.png")
+photo = PhotoImage(file="logo100.png")
 ##photo.resize_contain()
 
-canvas = Canvas(fenetre,width=45, height=45)
+canvas = Canvas(fenetre,width=95, height=95, borderwidth=0)
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 canvas['bg']='#fed5cf'
