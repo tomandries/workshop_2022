@@ -32,6 +32,7 @@ from plyer import notification
 import ctypes
 from win10toast_click import ToastNotifier
 import screen_brightness_control as sbc
+import tkinter as Tkin
 
 from subprocess import Popen
 
@@ -80,11 +81,33 @@ value = StringVar()
 value.set("texte par défaut")
 entree = Entry(fenetre, textvariable=str, width=30)
 entree.pack()
-bouton=Button(fenetre, text="Envoyer", bg='#c1badb', font=("Roboto", 12)).pack(pady=10)
+
+def sendMail():
+    #envoyer mail :
+    msg = MIMEMultipart()
+    msg['From'] = 'compte.workshop.i1@gmail.com'
+    msg['To'] = 'compte.workshop.i1@gmail.com'
+    msg['Subject'] = "Remonté d'un problème sur SmileTime"
+    message = 'Bonjour, un problème vous a été remonté, le voici : ' + entree.get()
+    msg.attach(MIMEText(message))
+    mailserver = smtplib.SMTP('smtp.gmail.com', 587)
+    mailserver.ehlo()
+    mailserver.starttls()
+    mailserver.ehlo()
+    mailserver.login('compte.workshop.i1@gmail.com', os.environ["PASSWORD"])
+    mailserver.sendmail('compte.workshop.i1@gmail.com', 'compte.workshop.i1@gmail.com', msg.as_string())
+    mailserver.quit()
+    entree.delete(0,Tkin.END)
+    label3 = Label(fenetre, text="Bien envoyé !")
+    label3.pack(pady=10)
+    label3['bg']='#fed5cf'
+    label3.config(font=("Roboto", 14))
+
+boutonEnvoyer=Button(fenetre, text="Envoyer", bg='#c1badb', font=("Roboto", 12), command=sendMail).pack(pady=10)
 
 fenetre['bg']='#fed5cf'
 
-fenetre.resizable(True, True)  # This code helps to disable windows from resizing
+fenetre.resizable(True, True)
 
 window_height = 500
 window_width = 900
@@ -98,51 +121,9 @@ y_cordinate = int((screen_height/2) - (window_height/2))
 fenetre.geometry("{}x{}+{}+{}".format(window_width, window_height, x_cordinate, y_cordinate))
 bouton=Button(fenetre, command=st1, text="Lancer l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
 bouton=Button(fenetre, command=st2, text="Stopper l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
-### frame 1
-##Frame1 = Frame(fenetre, borderwidth=2, relief=GROOVE)
-##Frame1.pack(side=LEFT, padx=30, pady=30)
-##
-### frame 2
-##Frame2 = Frame(fenetre, borderwidth=2, relief=GROOVE)
-##Frame2.pack(side=LEFT, padx=10, pady=10)
-##
-### frame 3 dans frame 2
-##Frame3 = Frame(Frame2, bg="white", borderwidth=2, relief=GROOVE)
-##Frame3.pack(side=RIGHT, padx=5, pady=5)
 
-# Ajout de labels
-##Label(Frame1, text="Frame 1").pack(padx=10, pady=10)
-##Label(Frame2, text="Frame 2").pack(padx=10, pady=10)
-##Label(Frame3, text="Frame 3",bg="white").pack(padx=10, pady=10)
-##
-##Canvas(fenetre, width=250, height=100, bg='ivory').pack(side=TOP, padx=5, pady=5)
-##Button(fenetre, text ='Bouton 1', bg='#c1badb').pack(side=LEFT, padx=5, pady=5)
-##Button(fenetre, text ='Bouton 2', bg='#c1badb').pack(side=RIGHT, padx=5, pady=5)
-# bouton de sortie
 bouton=Button(fenetre, text="Fermer", bg='#c1badb', font=("Roboto", 12), command=fenetre.quit).pack(side=RIGHT, padx=5, pady=5)
 
-##photo = PhotoImage(file="setirer.ico")
-##
-##canvas = Canvas(fenetre,width=350, height=200)
-##canvas.create_image(0, 0, anchor=NW, image=photo)
-##canvas.pack()
-
 fenetre.mainloop()
-
-
-#envoyer mail :
-msg = MIMEMultipart()
-msg['From'] = 'compte.workshop.i1@gmail.com'
-msg['To'] = 'compte.workshop.i1@gmail.com'
-msg['Subject'] = "Remonté d'un problème sur SmileTime"
-message = 'Bonjour,'
-msg.attach(MIMEText(message))
-mailserver = smtplib.SMTP('smtp.gmail.com', 587)
-mailserver.ehlo()
-mailserver.starttls()
-mailserver.ehlo()
-mailserver.login('compte.workshop.i1@gmail.com', os.environ["PASSWORD"])
-mailserver.sendmail('compte.workshop.i1@gmail.com', 'compte.workshop.i1@gmail.com', msg.as_string())
-mailserver.quit()
 
 
