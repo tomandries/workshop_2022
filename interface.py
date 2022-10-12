@@ -63,7 +63,7 @@ label.config(font=("Roboto", 27))
 
 photo = PhotoImage(file="logo100.png")
 
-canvas = Canvas(fenetre,width=95, height=95, borderwidth=0)
+canvas = Canvas(fenetre,width=95, height=95, borderwidth=0, highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 canvas['bg']='#fed5cf'
