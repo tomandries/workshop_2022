@@ -10,6 +10,7 @@
 #-------------------------------------------------------------------------------
 # coding: utf-8
 
+from os import close
 from tkinter import *
 from tkinter.filedialog import *
 import smtplib
@@ -20,6 +21,39 @@ from dotenv import dotenv_values
 import os
 
 load_dotenv()
+
+import threading
+from turtle import clone
+
+import win32com.client
+import datetime
+import time
+from plyer import notification
+import ctypes
+from win10toast_click import ToastNotifier
+import screen_brightness_control as sbc
+
+from subprocess import Popen
+
+def launchNotif():
+    global p
+    p = Popen(['python', 'testfinal.py'])
+
+def stopNotif():
+    global p
+    p.kill()
+    print('finfinfin')
+    global var_test
+    var_test = False
+
+t1 = threading.Thread(target=launchNotif)
+t2 = threading.Thread(target=stopNotif)
+
+def st1():
+    t1.start()
+
+def st2():
+    t2.start()
 
 fenetre = Tk()
 fenetre.title("SmileTime")
@@ -50,7 +84,7 @@ bouton=Button(fenetre, text="Envoyer", bg='#c1badb', font=("Roboto", 12)).pack(p
 
 fenetre['bg']='#fed5cf'
 
-fenetre.resizable(False, False)  # This code helps to disable windows from resizing
+fenetre.resizable(True, True)  # This code helps to disable windows from resizing
 
 window_height = 500
 window_width = 900
@@ -62,8 +96,8 @@ x_cordinate = int((screen_width/2) - (window_width/2))
 y_cordinate = int((screen_height/2) - (window_height/2))
 
 fenetre.geometry("{}x{}+{}+{}".format(window_width, window_height, x_cordinate, y_cordinate))
-bouton=Button(fenetre, text="Lancer l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
-bouton=Button(fenetre, text="Stopper l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
+bouton=Button(fenetre, command=st1, text="Lancer l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
+bouton=Button(fenetre, command=st2, text="Stopper l'application", bg='#c1badb', font=("Roboto", 12)).pack(pady=5)
 ### frame 1
 ##Frame1 = Frame(fenetre, borderwidth=2, relief=GROOVE)
 ##Frame1.pack(side=LEFT, padx=30, pady=30)
@@ -110,4 +144,5 @@ mailserver.ehlo()
 mailserver.login('compte.workshop.i1@gmail.com', os.environ["PASSWORD"])
 mailserver.sendmail('compte.workshop.i1@gmail.com', 'compte.workshop.i1@gmail.com', msg.as_string())
 mailserver.quit()
+
 
