@@ -21,8 +21,6 @@ from dotenv import dotenv_values
 import os
 import notifications
 
-load_dotenv()
-
 import threading
 from turtle import clone
 
@@ -36,6 +34,8 @@ import screen_brightness_control as sbc
 import tkinter as Tkin
 
 from subprocess import Popen
+
+load_dotenv()
 
 def launchNotif():
     global p
