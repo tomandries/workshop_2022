@@ -88,6 +88,7 @@ def checkBack() :
         app_icon="dos.ico"
     )
 
+
 # variables & objets
 delay = int(input("Délai avant le verrouillage (en minutes) : "))
 toaster = ToastNotifier()

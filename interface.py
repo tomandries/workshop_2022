@@ -19,7 +19,6 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 from dotenv import dotenv_values
 import os
-import testfinal
 
 load_dotenv()
 
@@ -39,7 +38,7 @@ from subprocess import Popen
 
 def launchNotif():
     global p
-    p = Popen(['python', 'testfinal.py'])
+    p = Popen(['python', 'notifications.py'])
 
 def stopNotif():
     global p
