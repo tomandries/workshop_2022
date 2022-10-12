@@ -44,9 +44,6 @@ def launchNotif():
 def stopNotif():
     global p
     p.kill()
-    print('finfinfin')
-    global var_test
-    var_test = False
 
 t1 = threading.Thread(target=launchNotif)
 t2 = threading.Thread(target=stopNotif)
