@@ -12,11 +12,19 @@
 
 from tkinter import *
 from tkinter.filedialog import *
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from dotenv import load_dotenv
+from dotenv import dotenv_values
+import os
+
+load_dotenv()
 
 fenetre = Tk()
-fenetre.title("nomAppli")
+fenetre.title("SmileTime")
 
-label = Label(fenetre, text="Bienvenue sur nomAppli")
+label = Label(fenetre, text="Bienvenue sur SmileTime")
 label.pack(pady=10)
 label['bg']='#fed5cf'
 label.config(font=("Roboto", 27))
@@ -86,3 +94,20 @@ bouton=Button(fenetre, text="Fermer", bg='#c1badb', font=("Roboto", 12), command
 ##canvas.pack()
 
 fenetre.mainloop()
+
+
+#envoyer mail :
+msg = MIMEMultipart()
+msg['From'] = 'compte.workshop.i1@gmail.com'
+msg['To'] = 'compte.workshop.i1@gmail.com'
+msg['Subject'] = "Remonté d'un problème sur SmileTime"
+message = 'Bonjour,'
+msg.attach(MIMEText(message))
+mailserver = smtplib.SMTP('smtp.gmail.com', 587)
+mailserver.ehlo()
+mailserver.starttls()
+mailserver.ehlo()
+mailserver.login('compte.workshop.i1@gmail.com', os.environ["PASSWORD"])
+mailserver.sendmail('compte.workshop.i1@gmail.com', 'compte.workshop.i1@gmail.com', msg.as_string())
+mailserver.quit()
+
