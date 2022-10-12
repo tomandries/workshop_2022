@@ -19,6 +19,7 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 from dotenv import dotenv_values
 import os
+import notifications
 
 load_dotenv()
 
@@ -38,14 +39,11 @@ from subprocess import Popen
 
 def launchNotif():
     global p
-    p = Popen(['python', 'testfinal.py'])
+    p = Popen(['python', 'notifications.py'])
 
 def stopNotif():
     global p
     p.kill()
-    print('finfinfin')
-    global var_test
-    var_test = False
 
 t1 = threading.Thread(target=launchNotif)
 t2 = threading.Thread(target=stopNotif)
@@ -65,7 +63,6 @@ label['bg']='#fed5cf'
 label.config(font=("Roboto", 27))
 
 photo = PhotoImage(file="logo100.png")
-##photo.resize_contain()
 
 canvas = Canvas(fenetre,width=95, height=95, borderwidth=0)
 canvas.create_image(0, 0, anchor=NW, image=photo)
