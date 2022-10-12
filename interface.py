@@ -32,6 +32,7 @@ from plyer import notification
 import ctypes
 from win10toast_click import ToastNotifier
 import screen_brightness_control as sbc
+import tkinter as Tkin
 
 from subprocess import Popen
 
@@ -81,7 +82,7 @@ value.set("texte par défaut")
 entree = Entry(fenetre, textvariable=str, width=30)
 entree.pack()
 
-def getEntry():
+def sendMail():
     #envoyer mail :
     msg = MIMEMultipart()
     msg['From'] = 'compte.workshop.i1@gmail.com'
@@ -96,8 +97,13 @@ def getEntry():
     mailserver.login('compte.workshop.i1@gmail.com', os.environ["PASSWORD"])
     mailserver.sendmail('compte.workshop.i1@gmail.com', 'compte.workshop.i1@gmail.com', msg.as_string())
     mailserver.quit()
+    entree.delete(0,Tkin.END)
+    label3 = Label(fenetre, text="Bien envoyé !")
+    label3.pack(pady=10)
+    label3['bg']='#fed5cf'
+    label3.config(font=("Roboto", 14))
 
-bouton=Button(fenetre, text="Envoyer", bg='#c1badb', font=("Roboto", 12), command=getEntry).pack(pady=10)
+boutonEnvoyer=Button(fenetre, text="Envoyer", bg='#c1badb', font=("Roboto", 12), command=sendMail).pack(pady=10)
 
 fenetre['bg']='#fed5cf'
 
