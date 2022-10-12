@@ -39,7 +39,7 @@ from subprocess import Popen
 
 def launchNotif():
     global p
-    p = Popen(['python', 'testfinal.py'])
+    p = Popen(['python', 'notifications.py'])
 
 def stopNotif():
     global p
@@ -62,7 +62,7 @@ label.pack(pady=10)
 label['bg']='#fed5cf'
 label.config(font=("Roboto", 27))
 
-photo = PhotoImage(file="bien-etre.png")
+photo = PhotoImage(file="logo.ico")
 ##photo.resize_contain()
 
 canvas = Canvas(fenetre,width=45, height=45)
