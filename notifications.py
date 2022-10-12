@@ -102,7 +102,7 @@ while True:
     day = datetime.datetime.now()
     print("heure actuelle : " + str(day))
     if (inReu() == False):
-        # s'il est l'heure de verrouiller l'ordinateur 
+        # s'il est l'heure de verrouiller l'ordinateur
         if (timeLock.hour * 10000 + timeLock.minute * 100 + timeLock.second <= day.hour * 10000 + day.minute * 100 + day.second):
             goLock = True
             # notification
