@@ -19,7 +19,6 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 from dotenv import dotenv_values
 import os
-import notifications
 
 import threading
 from turtle import clone
