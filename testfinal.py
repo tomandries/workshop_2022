@@ -6,6 +6,8 @@ import ctypes
 from win10toast_click import ToastNotifier
 import screen_brightness_control as sbc
 
+# coding: utf-8
+
 # vérifie si l'utilisateur est en réunion
 def inReu():
     day = datetime.datetime.now()
