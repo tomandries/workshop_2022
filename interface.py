@@ -53,6 +53,11 @@ def st1():
 def st2():
     t2.start()
 
+def quitter():
+    global fenetre
+    fenetre.quit
+    os.system("TASKKILL /F /IM python.exe")
+
 fenetre = Tk()
 fenetre.title("SmileTime")
 
