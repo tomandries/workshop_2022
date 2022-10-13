@@ -20,8 +20,6 @@ from dotenv import load_dotenv
 from dotenv import dotenv_values
 import os
 
-load_dotenv()
-
 import threading
 from turtle import clone
 
@@ -35,6 +33,8 @@ import screen_brightness_control as sbc
 import tkinter as Tkin
 
 from subprocess import Popen
+
+load_dotenv()
 
 def launchNotif():
     global p
@@ -68,7 +68,7 @@ label.config(font=("Roboto", 27))
 
 photo = PhotoImage(file="logo100.png")
 
-canvas = Canvas(fenetre,width=95, height=95, borderwidth=0)
+canvas = Canvas(fenetre,width=95, height=95, borderwidth=0, highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=photo)
 canvas.pack()
 canvas['bg']='#fed5cf'

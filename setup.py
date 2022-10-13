@@ -4,13 +4,13 @@
 from cx_Freeze import setup, Executable
   
 executables = [
-        Executable(script = "interface.py", icon = "logo.ico")
+        Executable(script = "interface.py", icon = "logo.ico", base="Win32GUI")
 ]
   
 buildOptions = dict( 
         includes = ["os","tkinter", "tkinter.filedialog", "smtplib", "email.mime.multipart", "email.mime.text", "dotenv", "threading", "turtle", "win32com.client",
          "datetime", "time", "plyer", "ctypes", "win10toast_click", "screen_brightness_control", "subprocess"],
-        include_files = ["logo.ico", "clock.ico", "dos.ico", "oeilPleure.ico", "setirer.ico", " notifications.py"]
+        include_files = ["logo.ico", "clock.ico", "dos.ico", "oeilPleure.ico", "setirer.ico", "logo100.png", "notifications.py"]
 )
   
 setup(

@@ -90,7 +90,7 @@ def checkBack() :
 
 
 # variables & objets
-delay = int(input("Délai avant le verrouillage (en minutes) : "))
+delay = 2 #int(input("Délai avant le verrouillage (en minutes) : "))
 toaster = ToastNotifier()
 day = datetime.datetime.now()
 timeLock = addBreak(delay)
@@ -100,9 +100,9 @@ hour_alert = day.hour
 
 while True:
     day = datetime.datetime.now()
-    print("heure actuelle : " + str(day))
+    #print("heure actuelle : " + str(day))
     if (inReu() == False):
-        # s'il est l'heure de verrouiller l'ordinateur 
+        # s'il est l'heure de verrouiller l'ordinateur
         if (timeLock.hour * 10000 + timeLock.minute * 100 + timeLock.second <= day.hour * 10000 + day.minute * 100 + day.second):
             goLock = True
             # notification
@@ -118,16 +118,16 @@ while True:
             time.sleep(30)  # pause de 30 secondes
             # verrouillage
             if (goLock == True):
-                print("L'ordinateur va se verrouiller")
+                #print("L'ordinateur va se verrouiller")
                 time.sleep(5)
                 ctypes.windll.user32.LockWorkStation()
                 time.sleep(15)
         else:
             time.sleep(5)
-            print('Working hard...')
+            #print('Working hard...')
     else:
         time.sleep(5)
-        print('In meeting...')
+        #print('In meeting...')
     if (hour_alert == day.hour):
         eye_alert = 0
         hour_alert += 1
